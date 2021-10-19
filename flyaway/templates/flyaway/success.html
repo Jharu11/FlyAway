@@ -1,0 +1,30 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="row mt-5 mb-5 text-center">
+            <div class="col-6 bg-danger mx-auto bg-light pt-3 pb-3">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <h4>Congratulation! Booking Successful.</h4>
+                    </div>
+                </div>
+                
+                <div class="row text-center">
+                    <div class="col-12">
+                        <img src="{% static 'assets/img/icons/done.png' %}" alt="" class="success-img">
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-12">
+                        <a href="index.html" class="success-link">Dowload E-ticket</a><br>
+                        <a href="index.html" class="success-link">Back To Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock content %}

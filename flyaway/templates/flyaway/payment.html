@@ -1,0 +1,167 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row mt-3 mb-3 d-flex flex-row justify-content-between">
+                <div class="col-lg-8 pb-3">
+                    <div class="row bg-white shadow-lg" id="payment">
+                        <div class="col-12">
+                            <div class="row text-white pt-2 pb-2" style="background-color: #000;">
+                                <div class="col-12">
+                                    Payment
+                                </div>
+                            </div>
+                            <form>
+                            {% csrf_token %}
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                Account name
+                                                <input type="text" name="name" class="form-control" value="{{request.user}}" readonly>
+                                                                
+                                            </div>
+                                            <div class="col-6">
+                                                Time<br>
+                                                <input type="text" name="time" class="form-control" value="{{time}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                From<br>
+                                                <input type="text" name="from" class="form-control" value="{{from}}" readonly>
+                                            </div>
+                                        </div>                                           
+                                    </div>                                  
+                                </div>
+                            </form>
+
+                            <div class="row mt-3 bg-white shadow-lg" id="payment">
+                                <div class="col-12">
+                                    <div class="row text-white pt-2 pb-2" style="background-color: #000;">
+                                        <div class="col-12">
+                                            Payment
+                                        </div>
+                                    </div>
+                                    <div class="row pt-2 pb-2">
+                                        <div class="col-6">
+                                            <i class="fas fa-info pr-2"></i><b>Paypal Options</b>
+                                            <div id="paypal-button-container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" style="width: 100%;">
+                    <div class="row bg-white shadow-lg pb-2 rounded ml-lg-1">
+                        <div class="col-12">
+                            <div class="row pt-2 pb-2 align-items-center border-bottom text-white" style="background-color: #000;">
+                                <div class="col-12">
+                                    <span>Fare Summary</span>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-12">
+                                    <span class="float-left">Base Fair</span>
+                                    <span class="float-right">Rs. {{totalfair}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=Aei6F3_oPlfMCWCuSGwdHgfqiPmoqgEuiWRFnd_RFH_QYCy-VS8JdkzeUaAIxLalNVvbmJyHuBVzfPUk&currency=USD"></script>
+    <script>
+
+
+            function preventBack() { window.history.forward(); }
+                setTimeout("preventBack()", 0);  
+            window.onunload = function () { null };
+
+            var form = document.getElementsByClassName('form');
+
+
+            var total_money = '{{totalfair}}';
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                    amount: {
+                        value: parseFloat(total_money).toFixed(2)
+                    }
+                    }]
+                });
+                },
+                onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    submitFormData()
+                });
+                }
+            }).render('#paypal-button-container');
+
+
+            
+
+            function getToken(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getToken('csrftoken');
+
+            function submitFormData(){
+                var userInfo = {
+                    'name': null,
+                    'time': null,
+                    'from': null,                   
+                    'price': null,                   
+                }
+
+                userInfo.name = '{{request.user}}';
+                userInfo.time = '{{time}}';
+                userInfo.from = '{{c}}';
+                userInfo.price = '{{totalfair}}';
+                
+                console.log(userInfo.name)
+                
+                var url = "{% url 'checkout' %}"
+                console.log(url)
+                fetch(url,{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body:JSON.stringify({'form':userInfo}),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success', data);
+                    alert('Transaction Completed');
+                    window.location.href = "{% url 'success' %}"
+                })
+            }
+        
+    </script>
+{% endblock content %}

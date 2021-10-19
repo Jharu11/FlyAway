@@ -1,0 +1,173 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    {% load humanize %}
+    <div class="container-fluid">
+        <div class="container">
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="row bg-black text-white">
+                        <div class="col-9 pt-3 pb-3">
+                            <div class="row align-items-center">
+                                <div class="col-1">
+                                    <span class="from-to-img">
+                                        <img src="{% static 'assets/img/icons/013-aeroplane.png' %}" alt="">
+                                    </span>
+                                </div>
+                                <div class="col-11">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>{{trip_from}} - {{trip_to}}</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span>{{trip_departure}}</span> /<span class="pl-1">{{travellers}} Travellers</span>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-3 pt-4 pb-3 text-right">
+                            <button class="btn btn-white" id="searchCollapse">Filter</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row border border-bottom-0" id="filterSlide1">
+                        <div class="col-12 pt-2 pb-2 bg-white">
+                            <span class="pr-5"><input type="radio" name="trip" id="one"> One Way</span>
+                            <span><input type="radio" name="trip" id="two"> Round trip</span>
+                        </div>
+                    </div>
+
+                    <div class="row rounded border border-top-0" id="filterSlide2">
+                        <form action="/flights" method="GET">
+                            <div class="col-12">
+                                <div class="row bg-white rounded-lg shadow-sm">
+                                    <div class="col-12">
+                                        <div class="row pt-3 ml-1 mr-1">
+                                            <div class="col-md-3 pr-4 pb-2">
+                                                <div class="row col-form-data pt-2 pb-2">
+                                                    <div class="col-12">
+                                                        From
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" name="takeoff" id="tags" style="width: 100%;" class="search-form-items border-bottom airports" placeholder="Kathmandu, KTM" value="{{trip_from}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 pr-4 pb-2">
+                                                <div class="row col-form-data pt-2 pb-2">
+                                                    <div class="col-12">
+                                                        To
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" name="landing" id="tags2" style="width: 100%;" class="search-form-items border-bottom airports" placeholder="Bengalore, BLR" value="{{trip_to}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 pr-4 pb-2">
+                                                <div class="row col-form-data pt-2 pb-2">
+                                                    <div class="col-12">
+                                                        Departure
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" name="departure" id="departure" style="width: 100%;" class="search-form-items border-bottom" value="{{trip_departure}}" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 pr-4 pb-2">
+                                                <div class="row col-form-data pt-2 pb-2">
+                                                    <div class="col-12">
+                                                        Return
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" name="arrival" id="arrival" style="width: 100%;" class="search-form-items border-bottom"  value="{{trip_arrival}}" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 pr-4 pb-2">
+                                                <div class="row col-form-data pt-2 pb-2">
+                                                    <div class="col-12">
+                                                        Travellers
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" name="passengers" id="travellers" style="width: 100%;" class="search-form-items-number border-bottom"  placeholder="Nuber Of Travellers" autocomplete="off" value="{{travellers}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 pt-2 pb-2 text-right">
+                                                <button class="btn-search">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3 bg-light pt-2 pb-2 border-bottom">
+                <div class="col-12">
+                    <span>Result Found</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    {% for details in details %}
+                        <!-- Search Flight Details-->
+                        <div class="row bg-white rounded shadow-lg mb-3 mt-3  align-items-center">
+                            <div class="col-12">
+                                <div class="row align-items-center pt-2 pb-2">
+                                    <div class="col-2 text-left">
+                                        <img src="{{ details.details.logo.url }}" alt="" style="width: 100%;">
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        <a href="{% url 'preview' details.departure.name details.ScheduleId details.arrival.name travellers %}"><button class="btn-search book">Book</button></a>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center" style="background-color: #E8EFF5;">
+                                    <div class="col-12">
+                                        <span>Departure |  {{details.fromDate}}  | {{details.details.company}} | {{details.details.number}}</span>
+                                    </div>
+                                </div>
+                                <div class="row pt-3 pb-3 align-items-center">
+                                    <div class="col-3">
+                                        {{details.fromTime}} <br>
+                                        <b>{{details.departure.city}}, {{details.departure.IATA}}</b>                                    
+                                    </div>
+                                    <div class="col-3">
+                                        02h:50m <br>
+                                        <b>Non-Stop</b>                                    
+                                    </div>
+                                    <div class="col-3">
+                                        {{details.toTime}} <br>
+                                        <b>{{details.arrival.city}}, {{details.arrival.IATA}}</b>                                     
+                                    </div>
+                                    <div class="col-3">
+                                        <b>Rs.</b>  {{details.farePrice|intcomma}}                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Search Flight Details End -->
+                    {% endfor %}
+                    
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- Body Ends Here -->
+
+        
+{% endblock content %}

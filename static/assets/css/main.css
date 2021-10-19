@@ -1,0 +1,358 @@
+::selection
+{
+    background-color: #FAB800;
+}
+body
+{
+    background-color: #fff;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+.loader-container
+{
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000000;
+}
+.pre-loader
+{
+    border-radius: 50%;
+    animation: loader 1.2s linear infinite;
+}
+.pre-loader img
+{
+    transform: rotate(90deg);
+    height: 100px;
+    display: inline;
+}
+@keyframes loader
+{   
+    0%{
+        margin-left: -1000px;
+    }
+    25%{
+        margin-left: -500px;
+    }
+    50%{
+        margin-left: 0px;
+    }
+    75%{
+        margin-left: 500px;
+    }
+    to{
+        margin-left: 1000px;
+    }
+}
+.logo-header a
+{
+    text-decoration: none;
+    color: #000;
+}
+.logo-header a:hover
+{
+    color: rgba(0, 0, 0, 0.5);
+}
+.user-auth span
+{
+    font-size: 1em;
+    font-weight: bolder;
+}
+.img-icon
+{
+    display: inline;
+    height: 20px;
+}
+.search-form-items
+{
+    width: 90%;
+    height: 50px;
+    border-bottom: 0px solid #000;
+    border-top: 0px solid #ddd;
+    border-right: 0px solid #ddd;
+    border-left: 0px solid #ddd;
+}
+.search-form-items:focus
+{
+    background-color: #fff;
+    outline: none;
+}
+.search-icon
+{
+    display: inline;
+    height: 20px;
+    width: 7%;
+}
+.search-icon-number
+{
+    display: inline;
+    height: 20px;
+    width: 4%;
+}
+.search-form-items-number
+{
+    width: 95%;
+    height: 50px;
+    border-bottom: 0px solid #000;
+    border-top: 0px solid #ddd;
+    border-right: 0px solid #ddd;
+    border-left: 0px solid #ddd;
+    outline: none;
+}
+.btn-search
+{
+    background-color: #FAB800;
+    color: #000;
+    width: 200px;
+    height: 30px;
+    border-style: none;
+    border-radius: 50px;
+    cursor: pointer;
+
+}
+.btn-search:focus
+{
+    outline: none;
+}
+.slider-img img
+{
+    border-radius: 10px;
+    height: 250px;
+    position: relative;
+}
+.opacity-image
+{
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0,0.4);
+}
+.country
+{
+    color: #ddd;
+}
+.footer
+{
+    background-color: #F7F7F7;
+}
+.social-networks img
+{
+    display: inline;
+    padding: 0px 10px 0px 0px;
+    height: 30px;
+}
+.our-policy a{
+    padding: 0px 0px 0px 10px;
+    color: #000;
+    text-decoration: none;
+}
+.our-policy a:hover{
+    padding: 0px 0px 0px 10px;
+    color: #000;
+    opacity: 0.5;
+    text-decoration: none;
+}
+.google-map-data
+{
+    height: 500px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+.google-map-data iframe
+{
+    height: 100%;
+    width: 100%;
+}
+.contact-form
+{
+    background-color: #fff;
+    height: auto;
+    margin: 0px auto;
+}
+.contact-form-fields
+{
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    border-top: 0px solid #ddd;
+    border-right: 0px solid #ddd;
+    border-left: 0px solid #ddd;
+    outline: none;
+    margin-bottom: 10px;
+
+}
+.label
+{
+    color: grey;
+}
+.btn-send-contact
+{
+    width: 100%;
+    height: 40px;
+    border-style: none;
+    background-color:  #FAB800;
+}
+.btn-send-contact:focus
+{
+    outline: none;
+}
+.from-to-img img
+{
+    display: inline;
+    height: 40px;
+    transform: rotate(90deg);
+}
+.from-to-text
+{
+    font-size: 17px;
+    font-weight: bold;
+    display: inline;
+}
+.bg-black
+{
+    background-color: #000;
+}
+.book
+{
+    width: 100px;
+}
+.front-aircraft
+{
+    border-radius: 200px 200px 0px 0px;
+    height: 200px;
+    line-height: 200px;
+}
+.back-aircraft
+{
+    border-radius:  0px 0px 200px 200px;
+    height: 200px;
+    line-height: 200px;
+}
+.seat-map
+{
+    height: 500px;
+    overflow-y: scroll;
+}
+.seatSelection
+{
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    background-color: #ddd;
+    border-radius: 5;
+    cursor: pointer;
+}
+.seatSelection:hover
+{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.seatSelection:checked
+{
+    background-color: red;
+}
+.booked
+{
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 5;
+    border: green;
+}
+.selected
+{
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 5;
+    border: green;
+}
+.success-img
+{
+    height: 150px;
+    margin: 10px 200px;
+}
+.success-link
+{
+    text-decoration: none;
+    color: #000;
+}
+.success-link:hover
+{
+    color: grey;
+}
+.navigation-menu
+{
+    background-color: #333547;
+}
+.card
+{
+    color: #fff;
+}
+.logout-btn
+{
+    cursor: pointer;
+}
+.widget
+{
+    height: 150px;
+}
+.indigo
+{
+    background-color: #3f51b5;
+}
+.indigo
+{
+    background-color: #4f4fed !important;
+}
+.text-indigo
+{
+    color: #4f4fed !important;
+}
+.blue
+{
+    background-color: #2196f3;
+}
+.light-blue
+{
+    background-color: #0288d1;
+}
+.greeting
+{
+    height: 200px;
+}
+.cyan
+{
+    background-color: #fff;
+}
+.custom-select
+{
+    width: 100px;
+}
+.abc{
+    border-style: none; float: right; width: 100%;
+    outline-color: white;
+}
+.abc:focus{
+    outline-style: none;
+    outline-color: white;
+}
+.pass
+{
+    width: 100%;
+}
+.hidden
+{
+    display: none;
+}

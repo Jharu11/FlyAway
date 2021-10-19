@@ -1,0 +1,138 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row mt-5 mb-5">
+                <div class="col-md-6">
+                    <div class="row pt-2 pb-2">
+                        <div class="col-12">
+                            <strong><h4>Discover the world with us!</h4></strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pt-2 pb-2">
+                            <span class="pr-5"><input type="radio" name="trip" id="one"> One Way</span>
+                            <span><input type="radio" name="trip" id="two" disabled> Round trip</span>
+                        </div>
+                    </div>
+                    <form action="/flights" method="get">
+                        <div class="row">
+                            <div class="col-6 pt-2 pb-2 pr-0 d-inline">
+                                <span><img src="{% static 'assets/img/icons/006-location.png' %}" alt="" class="search-icon"></span>
+                                <span>
+                                    <input type="text" name="takeoff" id="tags" placeholder="From" class="search-form-items">
+                                </span>
+                            </div>
+                            <div class="col-6 pt-2 pb-2 pl-0">
+                                <span><img src="{% static 'assets/img/icons/006-location.png' %}" alt="" class="search-icon"></span>
+                                <span>
+                                    <input type="text" name="landing" id="tags2" placeholder="To" class="search-form-items" list="airportLists2" autocomplete="off">
+                                    <datalist id="airportLists2">
+                                        {% for airports in airports %}
+                                            <option value="{{airports.name}}">
+                                        {% endfor %}
+                                    </datalist>
+                                </span>
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <div class="row">
+                            <div class="col-6 pt-2 pb-2 pr-0">
+                                <span><img src="{% static 'assets/img/icons/007-annual-calendar.png' %}" alt="" class="search-icon"></span>
+                                <input type="text" name="departure" id="departure" placeholder="Departure" class="search-form-items" autocomplete="off">
+                            </div>
+                            <div class="col-6 pt-2 pb-2 pl-0">
+                                <span><img src="{% static 'assets/img/icons/007-annual-calendar.png' %}" alt="" class="search-icon"></span>
+                                <input type="text" name="arrival" id="arrival" placeholder="Arrival" class="search-form-items" autocomplete="off">
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <div class="row">
+                            <div class="col-12 pt-2 pb-2">
+                                <span><img src="{% static 'assets/img/icons/012-multiple-users-silhouette.png' %}" alt="" class="search-icon-number"></span>
+                                <input type="text" name="passengers" id="passengers" placeholder="Number Of Travellers" class="search-form-items-number">
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <div class="row">
+                            <div class="col-12 pt-2 pb-2">
+                                <button class="btn-search">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="row pt-2 pt-sm-2">
+                        <div class="col-12">
+                            <strong><h4>Popular place to visit!</h4></strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 owl-carousel owl-theme">
+                            <div class="slider-img">
+                                <img src="{% static 'assets/img/places/nepal.jpg' %}" alt="">
+                                <div class="opacity-image text-white">
+                                    <div class="city pl-3 pt-5">
+                                        <h4>Kathmandu</h4>
+                                    </div>
+                                    <div class="country pl-3">
+                                        <p>Nepal</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-img">
+                                <img src="{% static 'assets/img/places/france.jpg' %}" alt="">
+                                <div class="opacity-image text-white">
+                                    <div class="city pl-3 pt-5">
+                                        <h4>Paris</h4>
+                                    </div>
+                                    <div class="country pl-3">
+                                        <p>France</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-img">
+                               <img src="{% static 'assets/img/places/dubai.jpg' %}" alt="">
+                               <div class="opacity-image text-white">
+                                <div class="city pl-3 pt-5">
+                                    <h4>Dubai</h4>
+                                </div>
+                                <div class="country pl-3">
+                                    <p>UAE</p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="slider-img">
+                                <img src="{% static 'assets/img/places/indo.jpg' %}" alt="">
+                                <div class="opacity-image text-white">
+                                    <div class="city pl-3 pt-5">
+                                        <h4>Bali</h4>
+                                    </div>
+                                    <div class="country pl-3">
+                                        <p>Indonesia</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-img">
+                                <img src="{% static 'assets/img/places/india.jpg' %}" alt="">
+                                <div class="opacity-image text-white">
+                                    <div class="city pl-3 pt-5">
+                                        <h4>Shimla</h4>
+                                    </div>
+                                    <div class="country pl-3">
+                                        <p>India</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Body Ends Here --> 
+    
+    <script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock content %}

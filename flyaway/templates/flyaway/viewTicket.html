@@ -1,0 +1,188 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    {% load humanize %}
+    <div class="container">
+        <div class="row pt-3 pb-3">
+            <div class="col-12 mb-3">
+                <div class="row text-right">
+                    <div class="col-12">
+                        <button id="download" class="btn pr-5 pl-5 btn-primary">Download Ticket</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 bg-light mx-auto pt-3 pb-3" id="invoice">
+                <div class="row">
+                    <div class="col-12 pb-4">
+                        <h3>FlyAway LTD.</h3>
+                    </div>
+                </div>
+                {% for qr in qr %}
+                    <div class="row pt-3 pb-3">
+                        <div class="col-6">
+                            <span>
+                                <span>Transaction Status: </span>{% if qr.transaction == "Confirmed" %}
+                                    <span class="text-success">{{qr.transaction}}</span>
+                                {% else %}
+                                    <span class="text-danger">{{qr.transaction}}</span>
+                                {% endif %}
+                            </span> 
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>
+                                <span>Booking Date & Time: </span>
+                                <span class="text-secondary">{{qr.dateCreated}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row pt-3 pb-3">
+                        <div class="col-12 text-right">
+                            <span>
+                                <span>Time: </span>
+                                <span class="text-secondary">{{qr.flight_time}}</span>
+                            </span>
+                            <span>
+                                <span>Date: </span>
+                                <span class="text-secondary">{{qr.flight_date}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row pt-2 pb-2 alert-success">
+                        <div class="col-3">
+                            Flight 
+                        </div>
+                        <div class="col-3">
+                            Departure
+                        </div>
+                        <div class="col-3">
+                            Arrival
+                        </div>
+                        <div class="col-3">
+                            PNR
+                        </div>
+                    </div>
+                    <div class="row pt-2 pb-2">
+                        <div class="col-3">
+                            {{qr.flightnumber}} 
+                        </div>
+                        <div class="col-3">
+                            {{qr.flight_from}}
+                        </div>
+                        <div class="col-3">
+                            {{qr.flight_to}}
+                        </div>
+                        <div class="col-3">
+                            {{qr.pnr}}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="row pt-5 pb-2">
+                    <div class="col-12">
+                        <h6>Passengers Details</h6>
+                    </div>
+                </div>
+                <div class="row pt-2 pb-2 alert-success">
+                    <div class="col-1">
+                        SN 
+                    </div>
+                    <div class="col-3">
+                        Title
+                    </div>
+                    <div class="col-4">
+                        Name
+                    </div>
+                    <div class="col-3">
+                        Email
+                    </div>
+                    <div class="col-1">
+                        Seat
+                    </div>
+                </div>
+                {% for query in query %}
+                    <div class="row pt-2 pb-2">
+                        <div class="col-1">
+                            {{forloop.counter}} 
+                        </div>
+                        <div class="col-3">
+                            {{query.passengerGender}}
+                        </div>
+                        <div class="col-4">
+                            {{query.passengerName}}
+                        </div>
+                        <div class="col-3">
+                            {{query.passengerEmail}}
+                        </div>
+                        {% if query.passengerName == "" %}
+                            <div class="col-1">
+                                {{query.passengerName}}
+                            </div>
+                        {% else %}
+                            <div class="col-1">
+                                N/A
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="row pt-5">
+                    <div class="col-12">
+                        <h6>Fare Details:</h6>
+                        <div class="row">
+                            <div class="col-6">Total Fare</div>
+                            <div class="col-6">Rs. {{price|intcomma}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                    <div class="col-12">
+                        <h6>Important Notice:</h6>
+                        <div class="row">
+                            <div class="col-12">
+                                Please confirm the terminal with the airline as the same can be changed anytime before departure.
+                                <ul>
+                                    <li>For any cancellation or modification request, please click here or visit Help section in our app/website. It's easier & faster!</li>
+                                    <li>Lead Charges includes Conv. Fee, Insurance Charges (if selected), Visa Campaign (if applicable)</li>
+                                    <li>Use PNR for all communication you have directly with the airline about this booking</li>
+                                    <li>Your Ticket number serves as confirmation of your ticket status</li>
+                                    <li>Carry a print out of this e-ticket and present it to the airline counter at time of check-in</li>
+                                    <li>Carry photo identification, you will need it as proof of identity while checking in</li>
+                                    <li>As per the airline rules, the standard check-in time begins 2 hours before departure for domestic flights</li>
+                                    <li>In case of cancellation of a ticket, Company reserves the right to levy a cancellation fee per passenger per flight/sector. The aforesaid amount may be charged by the Company at its sole
+                                    discretion and without notice to the User. Please note these charges shall be over and above the airline cancellation charges.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5 text-center">
+                    <div class="col-12">
+                        <h6>Developed at Sambhram Academy Of Science And Technology</h6>
+                        <hr>
+                        <span>&#169; Copyright: Dammari Groups</span>
+                    </div>
+                </div>
+            </div>
+            <div id="elementH"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        
+        document.getElementById("download")
+        .addEventListener("click", () => {
+            const invoice = this.document.getElementById("invoice");
+            console.log(invoice);
+            console.log(window);
+            var opt = {
+                margin: 1,
+                filename: 'Ticket.pdf'+ '{{pnr}}',
+                image: { type: 'pdf', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(invoice).save();
+        })
+    </script> 
+    
+{% endblock content %}

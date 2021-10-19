@@ -1,0 +1,27 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="row mt-5 mb-5 text-center">
+            <div class="col-6 bg-danger mx-auto bg-light pt-3 pb-3">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <h4>Are you sure to want to cancel the ticket?</h4>
+                    </div>
+                    <div class="col-6 text-right pt-5">
+                        <form method="POST">
+                        {% csrf_token %}
+                    		<button class="btn btn-danger">Yes</button>
+                    	</form>
+                    </div>
+                    <div class="col-6 text-left pt-5">
+                    	<a href="{% url 'bookings' %}"><button class="btn btn-warning">No</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock content %}

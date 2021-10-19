@@ -1,0 +1,78 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container-fluid bg-white">
+        {% if request.user.is_authenticated %}
+            <div class="mx-auto mt-5 mb-5" style="width:400px">
+                <div class="row text-center align-items-center">
+                    <div class="col-12 pt-5 pb-3">
+                        <h3 class="font-weight-bold">You are already logined as<br>{{request.user}}</h3>
+                        <a href="{% url 'index' %}" class="text-secondary"><span class="text-indigo"><h5>Back To Home</h5></span></a>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}           
+
+            <div class="mx-auto mt-5 mb-5" style="width:400px">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="row text-center align-items-center">
+                        <div class="col-12 pt-5 pb-3">
+                            <h4 class="font-weight-bold">Welcome Back</h4>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span>Username</span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            <input type="text" name="username" required="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span class="pr-2">Password</span><span><a href="" class="text-secondary">Forgot?</a></span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            <input type="Password" name="password" required="" class="form-control">
+                        </div>
+                    </div>
+                    {% if messages %}
+                        {% for messages in messages %}
+                            <div class="row text-left align-items-center">
+                                <div class="col-12 pt-2 pb-2">
+                                    <div class="messages" role="alert">
+                                        <span class="text-danger">{{messages}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-2">
+                            <button class="btn indigo text-white form-control">Login to FlyAway</button>
+                        </div>
+                    </div>
+                    <div class="row text-center align-items-center">
+                        <div class="col-12 pt-2 pb-5">
+                            <a href="{% url 'signup' %}" class="text-secondary">Don't have  an account? <span class="text-indigo">Create Account</span></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        {% endif %}
+
+
+        
+
+    </div>
+
+    
+{% endblock content %}

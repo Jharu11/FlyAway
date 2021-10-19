@@ -1,0 +1,87 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    {% load widget_tweaks %}
+    
+    <div class="container-fluid bg-white">
+            <div class="mx-auto mt-5" style="width:400px">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row text-center align-items-center">
+                        <div class="col-12 pt-3 pb-3">
+                            <h4 class="font-weight-bold">Welcome To The Family</h4>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span class="pr-2">Username</span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            {% render_field form.username type="text" class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span>Email Address</span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            {% render_field form.email type="email" class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span class="pr-2">Password</span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            {% render_field form.password1 type="Password" class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span class="pr-2">Confirm Password</span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            {% render_field form.password2 type="Password" class="form-control" %}
+                        </div>
+                    </div>
+                    
+                    <div class="row text-left align-items-center">
+                            <div class="col-12 pt-2 pb-2">
+                                <div class="messages" role="alert">
+                                    {{form.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    {% for messages in messages %}
+                        <div class="row text-left align-items-center">
+                            <div class="col-12 pt-2 pb-2">
+                                <div class="messages" role="alert">
+                                    {{messages}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}    
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-2">
+                            <button class="btn indigo text-white form-control">Login to FlyAway</button>
+                        </div>
+                    </div>
+                    <div class="row text-center align-items-center">
+                        <div class="col-12 pt-2 pb-4">
+                            <a href="{% url 'login' %}" class="text-secondary">Already have an account? <span class="text-indigo">Login</span></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends 'flyaway/main.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container-fluid bg-white">         
+
+            <div class="mx-auto mt-5 mb-5" style="width:400px">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="row text-center align-items-center">
+                        <div class="col-12 pt-5 pb-3">
+                            <h4 class="font-weight-bold">Please Check Your Email And Verify Your Account</h4>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-1">
+                            <span>OTP Here</span>
+                        </div>
+                    </div>
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pb-2">
+                            <input type="text" name="otp" required="" class="form-control">
+                        </div>
+                    </div>
+                    {% if messages %}
+                        {% for messages in messages %}
+                            <div class="row text-left align-items-center">
+                                <div class="col-12 pt-2 pb-2">
+                                    <div class="messages" role="alert">
+                                        <span class="text-danger">{{messages}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row text-left align-items-center">
+                        <div class="col-12 pt-2 pb-2">
+                            <button class="btn indigo text-white form-control">Login to FlyAway</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        
+
+    </div>
+
+    
+{% endblock content %}
