@@ -25,7 +25,7 @@ SECRET_KEY = 'p8byreaik_0ml0b-&%s+=st(3(4crusvs3z=c9*4ia_o&iodt7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'flyaway-dammari.herokuapp.com']
+ALLOWED_HOSTS = ['flyaway-dammari.herokuapp.com']
 
 
 # Application definition
