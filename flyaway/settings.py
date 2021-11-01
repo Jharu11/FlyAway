@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-sfc$m6&7@k!9*_#1hbxd_9=v@o5nu_00=+v5tdu@)ao2e$v47b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['flyaway-dammari.herokuapp.com']
 
 
 # Application definition
@@ -155,4 +155,4 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
