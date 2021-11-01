@@ -1,0 +1,124 @@
+{% extends 'flyaway/base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container-fluid mt-4">
+        <div class="container">
+            <div class="row pt-2 pb-2 bg-black text-white align-items-center">
+                <div class="col-6 bg-transparent">
+                    <span class="bg-transparent" style="font-size: 20px;">Kathmandu <i class="fas fa-plane bg-transparent"></i> Pokhara</span>
+                </div>
+                <div class="col-6 bg-transparent text-right">
+                    <button class="btn btn-light btn-expand">Filter</button>
+                </div>
+            </div>
+            <div class="row border pb-4 sliding">
+                <div class="col-12">
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <div class="trip-selection pt-2 pb-2">
+                                <label class="one">
+                                    <input type="radio" name="trip" id="one"> One Way
+                                </label>
+                                <label class="two">
+                                    Two Way Not Available
+                                </label>                        
+                            </div>
+                        </div>
+                    </div>
+                    <form method="GET">
+                        <div class="row align-content-center pt-2">
+                            <div class="col-lg-4 pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        From:<br>
+                                        <input type="text" placeholder="From" name="origin" required class="form-control origin" autocomplete="off" id="origin" value="{{flight_from}}">
+                                    </div>
+                                    <div class="col-6">
+                                        To:<br>
+                                        <input type="text" placeholder="To" name="destination" required class="form-control destination" autocomplete="off" id="destination" value="{{flight_to}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pt-2 pb-2 ">
+                                <div class="row">
+                                    <div class="col-6">
+                                        Departure:<br>
+                                        <input type="text" placeholder="Departure" name="departure" required class="form-control departure" autocomplete="off" id="departure" value="{{travel_date}}">
+                                    </div>
+                                    <div class="col-6">
+                                        Arrival:<br>
+                                        <input type="text" placeholder="Arrival" name="arrival" required class="form-control arrival" autocomplete="off" id="arrival">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        Travellers:<br>
+                                        <input type="text" placeholder="Travellers" name="passenger" required class="form-control" autocomplete="off" value="{{travellers}}" min="1" max="5">
+                                    </div>
+                                    <div class="col-6">
+                                        <br>
+                                        <button class="btn btn-primary container">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row bg-light pt-2 pb-2">
+                         <div class="col-2 bg-transparent">
+                             Airline
+                         </div>
+                         <div class="col-2 bg-transparent">
+                             Departure
+                         </div>
+                         <div class="col-2 bg-transparent">
+                             Duration
+                         </div>
+                         <div class="col-2 bg-transparent">
+                             Arrival
+                         </div>
+                         <div class="col-4 bg-transparent">
+                             Price
+                         </div>
+                    </div>
+                    {% for list in lists %}
+                        <div class="row align-items-center pt-2 pb-2 border mt-2 mb-2">
+                            <div class="col-2">
+                                <img src="https://seeklogo.com/images/I/indigo-logo-EDBB4B3C09-seeklogo.com.png" alt="" style="height: 40px;">
+                                
+                            </div>
+                            <div class="col-2">
+                                {{list.fromTime}} <br>
+                                <b>{{list.where_from.address}}</b>
+                            </div>
+                            <div class="col-2">
+                                {{list.toTime}} <br>
+                                <b>{{list.where_to.address}}</b>
+                            </div>
+                            <div class="col-2">
+                                {{list.toTime}} <br>
+                                <b>{{list.where_to.address}}</b>
+                            </div>
+                            <div class="col-2">
+                                Rs <b>{{list.farePrice}}</b>
+                            </div>
+                            <div class="col-2">
+                                <a href="{% url 'summary' list.slug travellers %}"><button class="btn btn-primary">BOOK</button></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

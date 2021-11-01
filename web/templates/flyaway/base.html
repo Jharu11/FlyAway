@@ -1,0 +1,177 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'flyaway/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/nice-select.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <title>FlyAway</title>
+</head>
+<body>
+
+
+    <!-- header starts -->
+
+    <div class="container-fluid border-bottom shadow-sm">
+        <div class="container">
+            <div class="row pt-3 pb-3 align-items-center">
+                <div class="col-6">
+                    <label class="brand"><a href="{% url 'index' %}">FlyAway</a></label>
+                </div>
+                <div class="col-6 text-right align-items-center">
+                    {% if  request.user.is_authenticated %}
+                        <a href="{% url 'profile' request.user %}" class="href-user">
+                            <label class="not-auth">
+                                <img src="{{request.user.customer.imageUrl}}" alt="" style="height: 30px;width: 30px; border-radius: 30px;">
+                                &nbsp;<span class="pl-4">Hello, {{request.user}}</span>
+                            </label>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'loginUser' %}" class="href-user">
+                            <label class="auth">
+                                <i class="far fa-user-circle"></i>&nbsp;
+                                <span class="pl-4">LOGIN OR SIGNUP</span>
+                            </label>
+                        </a>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- header ends -->
+    
+
+    <!-- *********************body************************* -->
+
+    {% block content %}
+
+
+    {% endblock content %}
+
+    <!-- *********************body ends************************* -->
+
+
+
+    <!-- footer starts here -->
+
+    <div class="container-fluid footer border-top pt-3">
+        <div class="container">
+            <div class="row pt-3 pb-3 align-items-center">
+                <div class="col-12 text-right">
+                    {% if request.user.is_authenticated %}
+                        <ul class="footer-nav">
+                            <li><a href="{% url 'profile' request.user %}">My Account</a></li>
+                            <li><a href="{% url 'bookings' %}">Booking</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="footer-nav">
+                            <li><a href="javascript:void(0)">Please Login To View Actions</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer ends -->
+    <script src="{% static 'flyaway/js/main.js' %}"></script>
+    <script src="{% static 'flyaway/js/bootstrap.min.js' %}"></script>    
+    <script src="{% static 'flyaway/js/jquery.js' %}"></script>
+    <script src="{% static 'flyaway/js/jqueryJs.js' %}"></script>
+    <script src="{% static 'flyaway/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'flyaway/js/jquery.nice-select.js' %}"></script>
+    <script src="{% static 'flyaway/js/transactions.js' %}"></script>
+    <script src="https://kit.fontawesome.com/9a34ebdf15.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+</body>
+</html>
+
+<script>
+   
+
+    function getToken(name) {
+        let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+
+
+    {% comment %} $('#form').submit(function(e) {                  
+        e.preventDefault();
+        var a = document.querySelectorAll('.title');
+        var b = document.querySelectorAll('.travellerfName');
+        var c = document.querySelectorAll('.travellerlName');
+        var token =  $('input[name=csrfmiddlewaretoken]').val();       
+        
+        for(var i=0; i<a.length; i++){
+            console.log('title', a[i].value,'fname', b[i].value,'lname', c[i].value);
+            $.ajax({
+                url: "{% url 'addPassenger' %}",
+                method: 'POST',
+                data:{
+                    'title': a[i].value,
+                    'fname': b[i].value,
+                    'lname': c[i].value,
+                    csrfmiddlewaretoken : csrftoken,
+                },
+                success:function(response) {
+                    console.log(response.message);
+                }
+            });
+        }
+        document.querySelector('.form-submittion').style.display = "none";
+    }); {% endcomment %}
+     var today = new Date();
+    $('#departure').datepicker({
+        showAnim: 'drop',
+        dateFormat: 'yy-mm-dd',
+        minDate: today,
+        onClose: function(selectedDate){
+            $('#arrival').datepicker('option', 'minDate', selectedDate);
+        }
+    });
+    $('#arrival').datepicker({
+        showAnim: 'drop',
+        dateFormat: 'yy-mm-dd',
+        minDate: today,
+        onClose: function(selectedDate){
+            $('#arrival').datepicker('option', 'minDate', selectedDate);
+        }
+    });
+
+
+    $( "#origin" ).autocomplete({
+        source: "{% url 'origin' %}"
+    });
+
+    $( "#destination" ).autocomplete({
+        source: "{% url 'origin' %}"
+    })
+
+    $('#dob').datepicker();
+
+    
+
+
+
+    
+</script>

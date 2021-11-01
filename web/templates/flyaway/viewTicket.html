@@ -1,0 +1,99 @@
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'flyaway/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/style.css' %}">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pt-4 pb-4 text-right">
+                <button class="btn btn-outline-primary" id="print-pdf" onclick="printPdf()">Print Invoice</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="starting">
+        <div class="row align-items-center pt-5 pb-3">
+            <div class="col-6">
+                <h3>
+                    FlyAway.LTD
+                </h3>
+            </div>
+            <div class="col-6 text-right">
+                    <span><b>Booking ID:</b> {{qr.transactionId}}</span><br>
+                    <span>{{qr.transaction}}</span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-6 bg-light pt-2 pb-2">
+                <b>Ticket PNR:</b> {{qr.pnr}},&nbsp; <b>Flight:</b> {{flight.details.number}}
+            </div>
+            <div class="col-6 bg-light pt-2 pb-2 text-right">
+                <b>Booked Date:</b> {{qr.dateCreated}}
+            </div>
+        </div>
+        <br>
+        <div class="row align-items-center">
+            <div class="col-12 bg-light pt-2">
+                <span class="bg-transparent">Passengers</span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-12 pb-2">
+                <table class="table bg-transparent p-0">
+                    {% for list in lists %}
+                    <tr>
+                        <td style="width: 40%;" class="bg-transparent"><b class="pr-5">Passenger {{forloop.counter}}:</b>&nbsp;&nbsp;&nbsp;&nbsp;{{list.passengerFName}} {{list.passengerLName}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-6 bg-light pt-2">
+                <span class="bg-transparent fw-bold">{{flight.where_from.address}} ({{flight.where_from.code}}) to {{flight.where_to.address}} ({{flight.where_to.code}})</span>
+            </div>
+            <div class="col-6 bg-light pt-2 text-right">
+                <b>Booked Date:</b> {{flight.fromDate}}, {{flight.fromTime}}
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-12 bg-light pb-2">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <span><b>From:</b> {{flight.where_from.name}}</span>
+                        </td>
+                        <td>
+                            <span><b>Departure:</b> {{flight.fromTime}} </span>
+                        </td>
+                        <td>
+                            <span><b>To:</b> {{flight.where_to.name}}</span>
+                        </td>
+                        <td>
+                            <span><b>Arrival:</b> {{flight.toTime}} </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="{% static 'flyaway/js/main.js' %}"></script>
+    <script src="{% static 'flyaway/js/bootstrap.min.js' %}"></script>    
+    <script src="{% static 'flyaway/js/jquery.js' %}"></script>
+    <script src="{% static 'flyaway/js/jqueryJs.js' %}"></script>
+
+    <script>
+        function printPdf() {
+            var backup = document.body.innerHTML;
+            var content = document.getElementById('starting').innerHTML;
+            document.body.innerHTML = content;
+            window.print();
+            document.body.innerHTML = backup;
+        }
+    </script>

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'flyaway/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/style.css' %}">
+    <title>FlyAway</title>
+</head>
+<body>
+
+    <div class="container-fluid confirmed-page">
+        <div class="confirmed-box">
+            <div class="row pt-3 pb-3">
+                <div class="col-12 text-center">
+                    <span class="confirm-msg">
+                        <i class="fas fa-check-circle"></i> <span>Booking Confirmed</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row pt-2 pb-3">
+                <div class="col-12 text-center">
+                    <p>
+                        Your trip from tribhuwan international airport Ktm to Blr is confirmed
+                        ticket is sent to your mail account.
+                    </p>
+                </div>
+            </div>
+            <div class="row pt-2 pb-3">
+                <div class="col-12 text-center">
+                    <a href="{% url 'index' %}"><button class="btn btn-outline-warning"><i class="fas fa-home bg-transparent"></i> Back To Home</button></a>
+                    <a href="{% url 'index' %}"><button class="btn btn-outline-warning"><i class="fas fa-print bg-transparent"></i> Print Ticket</button></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{% static 'flyaway/js/main.js' %}"></script>
+    <script src="{% static 'flyaway/js/bootstrap.min.js' %}"></script>    
+    <script src="{% static 'flyaway/js/jquery.js' %}"></script>
+    <script src="{% static 'flyaway/js/jqueryJs.js' %}"></script>
+    <script src="https://kit.fontawesome.com/9a34ebdf15.js" crossorigin="anonymous"></script>
+</body>
+</html>

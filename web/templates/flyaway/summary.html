@@ -1,0 +1,1064 @@
+{% extends 'flyaway/base.html' %}
+
+{% block content %}
+{% load static %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row pt-3">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-12 bg-black pt-2 pb-2 text-white">
+                            Flight Details
+                        </div>
+                    </div>
+                    <div class="row pt-1 pb-1 align-items-center">
+                        <div class="col-6">
+                            <img src="{{list.details.image.url}}" alt="" srcset="" style="height: 50px;">
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>{{list.fareType}}</span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center" style="background-color: #E8EFF5;">
+                        <div class="col-12 bg-transparent">
+                            <span class="bg-transparent">Departure l  {{list.fromDate}}  l {{list.details.company}} </span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center pt-3 pb-3">
+                        <div class="col-4">
+                            {{list.fromTime}} <br>
+                            <b>{{list.where_from.address}}</b>
+                        </div>
+                        <div class="col-4">
+                            00:45M <br>
+                            <b>Non-Stop</b> 
+                        </div>
+                        <div class="col-4">
+                            {{list.toTime}} <br>
+                            <b>{{list.where_to.address}}</b> 
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12 bg-black pt-2 pb-2 text-white">
+                            Travellers Details
+                        </div>
+                    </div>
+                    <form id="form" method="POST">
+                        {% csrf_token %}
+                        <div class="row pt-2 pb-2 align-items-center">
+                            <div class="col-12">
+                                {% for i in 'x'|ljust:travellers %}
+                                    <span><i class="fas fa-user-plus"></i> Traveller {{forloop.counter}}</span>
+                                    <div class="row align-items-center pt-3 pb-3 border-bottom">
+                                        <div class="col-md-5">
+                                            First & Middle Name: <br>
+                                            <input type="text" name="travellerfName" class="form-control travellerfName" required>
+                                        </div>
+                                        <div class="col-md-5">
+                                            Last Name: <br>
+                                            <input type="text" name="travellerlName" class="form-control travellerlName" required>
+                                        </div>
+                                    </div>
+                                    <br>
+                                {% endfor %}
+                                <div class="div align-items-center pt-3">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary form-submittion">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row mt-2">
+                        <div class="col-12 bg-black pt-2 pb-2 text-white">
+                            Payment Option
+                        </div>
+                    </div>
+                    <!-- <div class="row align-items-center pt-2 pb-2 seat-map">
+                        <div class="col-12">
+                            <div class="row justify-content-center text-center pt-1 pb-1">
+                                <div class="col-md-6 border front-aircraft bishwa" id="bishwa">Front Side</div>
+                            </div>
+
+                            
+                            <div class="row justify-content-center text-center">
+                                <div class="col-md-8 border">
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center text-center">
+                                                <div class="col-1">
+                                                    A                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    B
+                                                </div>
+                                                <div class="col-1">
+                                                    C
+                                                </div>
+                                                <div class="col-5">
+                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    D
+                                                </div>
+                                                <div class="col-1">
+                                                    E
+                                                </div>
+                                                <div class="col-1">
+                                                    F
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A1" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B1" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C1" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>1</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D1" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E1" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F1" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A1" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B2" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C2" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>2</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D2" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E2" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F2" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A3" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B3" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C3" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>3</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D3" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E3" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F3" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A4" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B4" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C4" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>4</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D4" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E4" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F4" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A5" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B5" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C5" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>5</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D5" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E5" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F5" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A6" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B6" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C6" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>6</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D6" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E6" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F6" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A7" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B7" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C7" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>7</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D7" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E7" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F7" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A8" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B8" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C8" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>8</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D8" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E8" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F8" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A9" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B9" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C9" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>9</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D9" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E9" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F9" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A10" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B10" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C10" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>10</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D10" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E10" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F10" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A11" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B11" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C11" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>11</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D11" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E11" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F11" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A12" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B12" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C12" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>12</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D12" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E12" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F12" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A13" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B13" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C13" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>13</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D13" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E13" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F13" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A14" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B14" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C14" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>14</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D14" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E14" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F14" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A15" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B15" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C15" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>15</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D15" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E15" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F15" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A16" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B16" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C16" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>16</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D16" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E16" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F16" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A17" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B17" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C17" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>17</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D17" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E17" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F17" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A18" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B18" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C18" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>18</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D18" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E18" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F18" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A19" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B19" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C19" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>19</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D19" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E19" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F19" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A20" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B20" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C20" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>20</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D20" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E20" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F20" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A21" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B21" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C21" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>21</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D21" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E21" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F21" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A22" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B22" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C22" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>22</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D22" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E22" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F22" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A23" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B23" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C23" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>23</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D23" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E23" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F23" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A24" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B24" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C24" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>24</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D24" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E24" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F24" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A25" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B25" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C25" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>25</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D25" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E25" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F25" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A26" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B26" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C26" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>26</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D26" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E26" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F26" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A27" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B27" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C27" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>27</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D27" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E27" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F27" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A28" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B28" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C28" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>28</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D28" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E28" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F28" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A29" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B29" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C29" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>29</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D29" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E29" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F29" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center pt-1 pb-1">
+                                        <div class="col-md-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="A30" class="seatSelection" onclick="return selection()">                                                    
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="B30" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="C30" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-5">
+                                                    <label>30</label>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="D30" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="E30" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="checkbox" name="seatSelection" id="F30" class="seatSelection" onclick="return selection()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row justify-content-center text-center pt-1 pb-1">
+                                <div class="col-md-6 border back-aircraft">Back Side</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row pt-3 pb-3">
+                        <div class="col-4 pt-2 pb-2 d-inline-flex">
+                            <div id="paypal-button-container"></div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row p-2 pt-0 pb-0">
+                        <div class="col-12 bg-black pt-2 pb-2 text-white">
+                            Flight Details
+                        </div>
+                    </div>
+                    <div class="row p-2 pb-0 pt-0 align-items-center">
+                        <div class="col-12 pt-2 pb-2 bg-light">
+                            <span class="float-start bg-transparent">Base Fair:</span>
+                            <span class="float-end bg-transparent">{{list.farePrice}}</span>
+                            <br>
+                            <span class="float-start bg-transparent">Convention fee:</span>
+                            <span class="float-end bg-transparent">{{conv}}</span>
+                            <br>
+                            <span class="float-start bg-transparent">Total Travellers:</span>
+                            <span class="float-end bg-transparent">x {{travellers}}</span>
+                        </div>
+                    </div>
+                    <div class="row p-2 pt-0 pb-0">
+                        <div class="col-12 bg-black pt-2 pb-2 text-white">
+                            <span class="float-start bg-transparent">Total:</span>
+                            <span class="float-end bg-transparent">{{total_money|floatformat:2}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=Aei6F3_oPlfMCWCuSGwdHgfqiPmoqgEuiWRFnd_RFH_QYCy-VS8JdkzeUaAIxLalNVvbmJyHuBVzfPUk&currency=USD"></script>
+    <script type="text/javascript" >
+        
+
+        var submitBtn = document.getElementById('form');
+        var travel = '{{travellers}}';
+        console.log(travel);
+        var fnames = document.getElementsByClassName('travellerfName');
+        var lnames = document.getElementsByClassName('travellerlName');
+        var token = document.getElementsByName('csrfmiddlewaretoken');
+        var total_money = '{{total_money}}';
+        
+        paypal.Buttons({
+                createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                    amount: {
+                        value: parseFloat(total_money).toFixed(2)
+                    }
+                    }]
+                });
+                },
+                onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    submitFormData()
+                });
+                }
+        }).render('#paypal-button-container');
+
+
+        submitBtn.onsubmit = function(e){
+            e.preventDefault();
+            alert('proceed to Payment');
+            document.querySelector('.form-submittion').style.display = 'none';
+            
+            
+        }
+
+        function submitFormData(){
+            
+            let userInfo = []
+
+            url = "{% url 'addPassenger' %}"
+            console.log(url);
+            for(var i=0; i<travel; i++) {       
+                let lists = {
+                    fname : fnames[i].value,
+                    lname : lnames[i].value,
+                    flight : '{{flight}}',
+                    fare : total_money,
+                }
+                userInfo.push(lists);
+            }
+            fetch(url,
+            {
+                method: 'POST',
+                headers:{
+                    'Content-Type':'application/text',
+                    'X-CSRFToken': csrftoken,
+                },
+                body:JSON.stringify({'form':userInfo}),
+            })
+            .then((response) => response.text())
+            .then(data => {
+                if(data){
+                    alert("Booking Confirmed With PNR" + data + ".Please Check Your Email");
+                    window.location.href = "{% url 'index' %}";
+                }
+                else{
+                    alert("Booking Unsuccessful Please BOok again");
+                    window.location.href = "{% url 'index' %}";
+                }
+            })
+        }
+        
+
+     </script>
+
+
+{% endblock content %}

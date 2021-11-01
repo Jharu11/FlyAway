@@ -1,0 +1,113 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'flyaway/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'flyaway/css/nice-select.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <title>flyAway</title>
+</head>
+<body>
+    <div class="container-fluid otp-section">
+        <div class="otp-box">
+            <div class="row pt-4 pb-4">
+                <h4 class="fw-bold">OTP Varification</h4>
+                <span class="otp-desc">Enter the OTP you received to <br><br</span><span class="otp-address"> {{request.user.email}}</span></span>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row pt-2 pb-1">
+                    <span class="otp-text-boxes">
+                        <input type="text" class="otp-input" required maxlength="1" autofocus="">
+                        <input type="text" class="otp-input" required maxlength="1">
+                        <input type="text" class="otp-input" required maxlength="1">
+                        <input type="text" class="otp-input" required maxlength="1">
+                    </span>
+                    <span class="pt-2 text-danger alert-section" style="font-size: 12px;"></span>
+                </div>
+                <div class="row pt-2 pb-1">
+                    <span><button class="btn btn-primary container otp-verifiy-btn">Verify</button></span>
+                </div>
+            
+            </form>
+
+
+
+            <div class="row pt-3 pb-5">
+                <a href="{% url 'resend' user %}"><span class="Resend-btn">Resend OTP</span></a>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="{% static 'flyaway/js/main.js' %}"></script>
+    <script src="{% static 'flyaway/js/bootstrap.min.js' %}"></script>    
+    <script src="{% static 'flyaway/js/jquery.js' %}"></script>
+    <script src="{% static 'flyaway/js/jqueryJs.js' %}"></script>
+    <script src="{% static 'flyaway/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'flyaway/js/jquery.nice-select.js' %}"></script>
+    <script src="{% static 'flyaway/js/transactions.js' %}"></script>
+    <script src="https://kit.fontawesome.com/9a34ebdf15.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+    
+        let otpMain = document.querySelectorAll('.otp-text-boxes .otp-input');
+        let otpBtn = document.querySelector('.otp-verifiy-btn');
+        let dist = "";
+        var token =  $('input[name=csrfmiddlewaretoken]').val();
+
+        otpMain.forEach(function(input){
+            // input.onfocus = function(){
+            //     input.select();
+            // };
+            input.addEventListener('keyup', function(e){
+                var element = e.target;
+                if (element.value.match(/\d/)) {
+                    if(dist.length < 4)
+                    {
+                        dist += element.value;
+                        if (element.nextElementSibling) {
+                            element.nextElementSibling.focus();
+                        }
+                    }         
+                }
+                else{
+                    document.querySelector('.alert-section').innerHTML = 'Alphabet Not Valid';
+                }
+            });
+        });
+
+
+        otpBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            url = "{% url 'check' %}";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data:{
+                    "otp": dist,
+                    "user": '{{user}}',
+                    csrfmiddlewaretoken: token,                    
+                },
+                success:function(res){
+                    if(res.message == "1"){
+                        window.location.href = "{% url 'index' %}";
+                    }
+                    else{
+                        alert("OTP Not Matched");
+                        location.reload();
+                    }
+
+                }
+            })
+        });
+    </script>
+</body>
+</html>

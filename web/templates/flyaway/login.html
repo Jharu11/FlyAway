@@ -1,0 +1,114 @@
+{% extends 'flyaway/base.html' %}
+
+{% block content %}
+{% load static %}
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="sologon">Discover the world with us!</label>
+                    <div class="trip-selection pt-2 pb-2">
+                        <label class="one">
+                            <input type="radio" name="trip" id="one"> One Way
+                        </label>
+                        <label class="two">
+                            Two Way Not Available
+                        </label>                        
+                    </div>
+                    
+                    <div class="trip-form">
+                        <form action="{% url 'flights' %}" method="GET">
+                            <div class="airports pt-4 pb-4">
+                                <label class="input-field">
+                                    <input type="text" class="origin" id="origin" name="origin" autocomplete="off" required>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span class="pcm">From</span>                                    
+                                </label>
+                                <ul class="list-group" id="result">
+                                </ul>
+                                <label class="input-field">
+                                    <input type="text" class="destination" id="destination" name="destination" autocomplete="off" required>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span class="pcm">To</span>
+                                </label>
+                            </div>
+                            <div class="airports pt-4 pb-4">
+                                <label class="input-field">
+                                    <input type="text" class="departure" id="departure" name="departure" autocomplete="off" required>
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span class="pcm">Departure</span>
+                                                                     
+                                </label>
+                                
+                                
+                                <label class="input-field">
+                                    <input type="text" class="arrival" id="arrival" name="arrival" autocomplete="off" required >
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span class="pcm">Arrival</span>
+                                </label>
+                            </div>
+                            <div class="airports pt-4 pb-4">
+                                <label class="input-field">
+                                    <input type="number" class="passenger" id="passenger" name="passenger" autocomplete="off" value="1" min="1" max="5" required>
+                                    <i class="fas fa-users"></i>
+                                    <span class="pcm">Number Of Travellers</span>
+                                </label>
+                            </div>
+                            <div class="airports pt-4 pb-4">
+                                <button class="flight-search-btn">Search flight</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="sologon pb-2">Popular place to visit!</label>
+                    <div class="image-sliders">
+                        <div class="owl-carousel owl-theme">
+                            <div class="item">
+                                <div class="slider-section">
+                                    <img src="{% static 'flyaway/images/sliders/1.webp' %}" alt="">
+                                    <div class="mask">
+                                        <span>Lumbini</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="slider-section">
+                                    <img src="{% static 'flyaway/images/sliders/2.webp' %}" alt="">
+                                    <div class="mask">
+                                        <span>Gandhruk</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="slider-section">
+                                    <img src="{% static 'flyaway/images/sliders/4.webp' %}" alt="">
+                                    <div class="mask">
+                                        <span>Chitwan</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="slider-section">
+                                    <img src="{% static 'flyaway/images/sliders/5.webp' %}" alt="">
+                                    <div class="mask">
+                                        <span>Pokhara</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="slider-section">
+                                    <img src="{% static 'flyaway/images/sliders/6.webp' %}" alt="">
+                                    <div class="mask">
+                                        <span>Pokhara</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  {% endblock content %}

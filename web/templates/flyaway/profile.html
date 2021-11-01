@@ -1,0 +1,71 @@
+
+{% extends 'flyaway/base.html' %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+    <div class="container-fluid pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                <form method="POST" enctype="multipart/form-data" action="">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div class="image-field text-center">
+                                <div class="pp-section text-center">
+                                    <img src="{{request.user.customer.imageUrl}}" class="profile-img" id="imagepreview">
+                                    {% render_field form.image   id="changepp" onchange="preview(event)"%}
+                                    <label for="changepp"><i class="fas fa-pen"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row pt-4">
+                            <div class="col-6">
+                                First Name:
+                                {% render_field form.fname class="form-control" required="required" %}
+                            </div>
+                            <div class="col-6">
+                                Last Name:
+                                {% render_field form.lname class="form-control" required="required" %}
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-6">
+                                Contact:
+                                {% render_field form.phone class="form-control" required="required" %}
+                            </div>
+                            <div class="col-6">
+                                Address:
+                                {% render_field form.address class="form-control" required="required" %}
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-6">
+                                DOB:
+                                {% render_field form.dob class="form-control" required="required" max_length="10" id="dob" %}
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-6">
+                                <button class="btn btn-outline-warning">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function preview(e) {
+            if (e.target.files.length > 0) {
+                var img = e.target.files[0];
+                var preview = document.getElementById('imagepreview');
+                preview.src = URL.createObjectURL(img);
+            }
+        }
+
+</script> 
+
+{% endblock content %}
